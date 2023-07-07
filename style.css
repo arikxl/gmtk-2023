@@ -1,23 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Audiowide", cursive;
+    overflow: hidden;
+}
+
+body{
+    background-image: url('assets/img/grass.jpg');
+    background-size: cover;
 }
 
 header{
     height: 10vh;
-    background-color:blue;
     display: flex;
     justify-content:space-around;
     align-items: center;
     font-size: 3rem;
+    color: snow;
+    background-color: rgba(0, 0, 34, 0.6);
+}
+
+h1{
+    font-size: 5rem;
+    font-weight: 300;
+}
+
+b{
+    color:snow;
+    text-shadow: 0 0 0.05em #fff, 0 0 0.2em yellowgreen, 0 0 0.3em yellow;
 }
 
 main{
     height: 80vh;
-    background-image: url('assets/grass.jpg');
-    background-size: cover;
 }
+
 #board{
     padding: 20px;
     height: 100%;
@@ -27,6 +46,8 @@ main{
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 80px;
+    position: relative;
+    z-index: 1;
 }
 
 .hole{
@@ -40,8 +61,6 @@ main{
     overflow: hidden;
 }
 
-
-
 .hole img, .mole{
     width: 70%;   
     position: absolute;
@@ -51,31 +70,39 @@ main{
     animation: rise 0.3s ease-out;
 }
 
-.player{
-    background-color: crimson ;
+@keyframes rise {
+    0%{
+        transform: translateX(-50%) translateY(100%);
+    }
+    100%{
+        transform: translateX(-50%) translateY(0%);
+    }
 }
 
-footer{
-    height: 10vh;
-    background-color: aqua;
-    text-align: center;
-    font-size: 2rem;
-}
 
-
-#cursor{
+#hammer1{
     height: 110px;
     width:100px;
     position: absolute;
     top: 100px;
     left: 100px;
-    background-image: url('assets/hammer.png');
+    background-image: url('assets/img/hammer.png');
     background-size: 100% 100%;
     transform: translate(-20%, -20%);
     transition: transform 0.1s;
-    pointer-events: none;
+    z-index: 100;
 }
 
-#cursor.active{
+#hammer1.active{
     transform: translate(-20%, -20%) rotate(-45deg);
+}
+
+
+footer{
+    height: 10vh;
+    color: snow;
+    text-align: center;
+    font-size: 2rem;
+    background-color: rgba(0, 0, 34,0.6);
+
 }
