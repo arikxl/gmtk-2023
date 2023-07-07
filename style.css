@@ -21,11 +21,17 @@ header{
     font-size: 3rem;
     color: snow;
     background-color: rgba(0, 0, 34, 0.6);
+    text-align: center;
 }
 
 h1{
     font-size: 5rem;
     font-weight: 300;
+    flex:2;
+}
+
+p{
+    flex:1;
 }
 
 b{
@@ -105,4 +111,8 @@ footer{
     font-size: 2rem;
     background-color: rgba(0, 0, 34,0.6);
 
+}
+
+.blood-effect {
+  background-color: crimson;
 }

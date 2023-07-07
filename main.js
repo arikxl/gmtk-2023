@@ -10,6 +10,7 @@ let lives = 3;
 let score = 0;
 let position = 4;
 let player1 = holes[position];
+let cantMove = false;
 
 LifeLabel.innerHTML=live.repeat(lives)
 
@@ -19,9 +20,6 @@ function addMole() {
     player1.appendChild(img);
 }
 addMole();
-
-console.log('board.style.top:', board.style.top)
-
 
 
 function moveRight() {
@@ -47,6 +45,7 @@ function moveUp() {
 }
 
 document.addEventListener('keydown', function (event) {
+    if (cantMove) return;
   if (event.code === 'ArrowRight') {
       moveRight()   
   }
@@ -64,64 +63,48 @@ document.addEventListener('keydown', function (event) {
 
 function moveHammer() {
     hammer.classList.add('active');
-    const boardWidth = board.offsetWidth;
-    const boardHeight = board.offsetHeight;   
 
-    // Generate random positions within the board's dimensions
-    const posX = ~~(Math.random() * (boardWidth - hammer.offsetWidth));
-    const posY = ~~(Math.random() * (boardHeight - hammer.offsetHeight));
+    const Xs = [90, 300, 530];
+    const Ys = [50, 280, 500];
+    const positions = [
+        {x:90, y:50},{x:300, y:50},{x:530, y:50},
+        {x:90, y:280},{x:300, y:280},{x:530, y:280},
+        {x:90, y:500},{x:300, y:500},{x:530, y:500},
+    ]
+    const i = ~~(Math.random() * 9); 
+    // const j = ~~(Math.random() * 3); 
 
-  // Update the position of the hammer
-    hammer.style.left = posX + 'px';
-    hammer.style.top = 500 + 'px';
-    // hammer.style.top = posY + 'px';
+    hammer.style.left = positions[i].x + 'px';
+    // hammer.style.left = Xs[i] + 'px';
+    // hammer.style.top = Ys[j] + 'px';
+    hammer.style.top = positions[i].y + 'px';
     
     setTimeout(() => {
         hammer.classList.remove('active');
-    }, 600);
-    console.log(hammer.style.top)
-    
+        score += 1;
+        scoreLabel.innerHTML = score;
+        if(position ===i) hit()
+    }, 400);
 }
 
 setInterval(moveHammer, 1200);
 
+function hit() {  
+    const hitSound = new Audio('assets/sound/mole_hit.wav');
+    // hitSound.play();
+
+    lives -= 1;
+    LifeLabel.innerHTML = live.repeat(lives)
+    img.src = "assets/img/boom.png";
+    cantMove = true;
+
+    holes[position].classList.add('blood-effect');
 
 
+    setTimeout(() => {
+        cantMove = false;
+        holes[position].classList.remove('blood-effect');
 
-// function run() {
-//     const i = Math.floor(Math.random() * holes.length); 
-//     const hole = holes[i];
-//     let timer = null;
+    }, 1500);
+}
 
-//     const img = document.createElement('img');
-//     img.classList.add('mole');
-//     img.src = "assets/mole.png";
-
-    
-//     img.addEventListener('click', () => {
-//         img.src = "assets/mole-whacked.png";
-//         score +=10;
-//         scoreLabel.innerHTML = score;
-//     })
-    
-//     // hole.appendChild(img);
-
-//     timer = setTimeout(() => {
-//         hole.appendChild(img);
-//         run()
-//     }, 1500)
-// }
-
-// run()
-
-// window.addEventListener('mousemove', e => {
-//     cursor.style.top = e.pageY + 'px';
-//     cursor.style.left = e.pageX + 'px';
-// })
-
-// window.addEventListener('mousedown', () => {
-//     cursor.classList.add('active');
-// })
-// window.addEventListener('mouseup', () => {
-//     cursor.classList.remove('active');
-// })
