@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="grassGradient" gradientUnits="userSpaceOnUse" x1="400" y1="0" x2="400" y2="600">
+      <stop offset="0" stop-color="#4CAF50"/>
+      <stop offset="1" stop-color="#2E7D32"/>
+    </linearGradient>
+    <pattern id="grassPattern" patternUnits="userSpaceOnUse" width="800" height="600">
+      <rect fill="url(#grassGradient)" width="800" height="600"/>
+      <circle cx="400" cy="300" r="150" fill="#2E7D32"/>
+      <circle cx="500" cy="200" r="100" fill="#2E7D32"/>
+      <circle cx="300" cy="250" r="120" fill="#2E7D32"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#grassPattern)"/>
+</svg>

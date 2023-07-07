@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    height: 10vh;
+    background-color:blue;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    font-size: 3rem;
+}
+
+main{
+    height: 80vh;
+    background-image: url('assets/grass.jpg');
+    background-size: cover;
+}
+#board{
+    padding: 20px;
+    height: 100%;
+    margin: 0 auto;
+    aspect-ratio: 1/1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 80px;
+}
+
+.hole{
+    background-color: rgb(165, 85, 11);
+    border-radius: 50%;
+    box-shadow: inset 0  10px 0 7px rgb(53, 21, 6),
+     inset 0 20px 20px 15px rgba(0,0,0, 0.3),
+     0 0 5px rgba(0,0,0, 0.5);
+
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+.hole img, .mole{
+    width: 70%;   
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    animation: rise 0.3s ease-out;
+}
+
+.player{
+    background-color: crimson ;
+}
+
+footer{
+    height: 10vh;
+    background-color: aqua;
+    text-align: center;
+    font-size: 2rem;
+}
+
+
+#cursor{
+    height: 110px;
+    width:100px;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    background-image: url('assets/hammer.png');
+    background-size: 100% 100%;
+    transform: translate(-20%, -20%);
+    transition: transform 0.1s;
+    pointer-events: none;
+}
+
+#cursor.active{
+    transform: translate(-20%, -20%) rotate(-45deg);
+}
