@@ -34,9 +34,13 @@ p{
     flex:1;
 }
 
-b{
+b, .glow{
     color:snow;
     text-shadow: 0 0 0.05em #fff, 0 0 0.2em yellowgreen, 0 0 0.3em yellow;
+}
+
+.gameOver{
+    text-shadow: 0 0 0.05em #fff, 0 0 0.3em hotpink, 0 0 0.4em crimson;
 }
 
 main{
@@ -86,7 +90,7 @@ main{
 }
 
 
-#hammer1{
+#hammer1, #hammer2, #hammer3{
     height: 110px;
     width:100px;
     position: absolute;
@@ -99,8 +103,22 @@ main{
     z-index: 100;
 }
 
-#hammer1.active{
+#hammer1.active, #hammer3.active{
     transform: translate(-20%, -20%) rotate(-45deg);
+}
+
+#hammer2{
+    display: none;
+    background-image: url('assets/img/hammer2.png');
+}
+
+#hammer2.active{
+    transform: translate(-20%, -20%) rotate(45deg);
+}
+
+#hammer3{
+    display: none;
+    background-image: url('assets/img/hammer3.png');
 }
 
 
@@ -113,6 +131,63 @@ footer{
 
 }
 
-.blood-effect {
+.blood {
   background-color: crimson;
+}
+
+#gameOverMsg{
+    height: 100%;
+    margin: 0 auto;
+    aspect-ratio: 1/1;
+    text-align: center;
+}
+
+.button {
+  position: relative;
+  border: 0;
+  padding: 1em 2em;
+  font-weight: 700;
+  cursor: pointer;
+  outline: .2em solid #fff;
+  outline-offset: -.3em;
+  color: #fff;
+  background-color: #333;
+  /* text-transform: uppercase; */
+  font-size: 1.3rem;
+}
+
+.button:hover {
+  animation: shake 500ms infinite,glitch 400ms infinite steps(4);
+}
+
+@keyframes shake {
+  0% {
+  }
+
+  25% {
+    transform: translate(-.1em,-.1em);
+  }
+
+  50% {
+    transform: translate(.3em,0);
+  }
+
+  75% {
+    transform: translate(0,.3em);
+  }
+
+  100% {
+  }
+}
+
+@keyframes glitch {
+  from {
+    box-shadow: .8em .8em  rgba(240, 84, 219),
+  -.8em -.8em rgba(84, 240, 232);
+  }
+
+  to {
+    text-shadow: .3em .2em  rgba(240, 84, 219),
+  -.3em -.2em rgba(84, 240, 232);
+  }
 }
