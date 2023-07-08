@@ -8,6 +8,8 @@ const footer1 = document.getElementById('footer1');
 const board = document.getElementById('board');
 const img = document.createElement('img');
 const h1 = document.querySelector('h1')
+const soundCheckbox = document.getElementById('soundCB');
+
 
 
 const live ="❤️"
@@ -18,11 +20,24 @@ let player1 = holes[position];
 let cantMove = false;
 let speed = 1200;
 let isGameOver = false;
-let highScore = localStorage.getItem('highScore-mole') ||0;
+let highScore = localStorage.getItem('highScore-mole') || 0;
 
 LifeLabel.innerHTML = live.repeat(lives);
+const sound = new Audio('assets/sound/mole_music.wav');
+
+function handleMusic() {
+    console.log('soundCheckbox.checked:', soundCheckbox.checked)
+  if (soundCheckbox.checked) {
+    sound.play();
+  } else {
+    sound.pause();
+  }
+}
+soundCheckbox.addEventListener('change', handleMusic);
+
 
 function newGame() {
+    if (soundCheckbox.checked) sound.play();
     lives = 3;
     score = 0;
     position = 4;
@@ -92,6 +107,14 @@ document.addEventListener('keydown', function (event) {
     if (event.code === 'ArrowDown') {
       moveDown()
     }
+    if (event.code === 'Digit1') {
+        lives += 1;
+        LifeLabel.innerHTML = live.repeat(lives);
+        if (lives > 5) {
+            LifeLabel.innerHTML = `${live}X${lives}`;
+
+        }
+    }
 });
 
 
@@ -146,8 +169,8 @@ setInterval(moveHammer, speed);
 
 function hit() {  
     if(isGameOver) return;
-    const hitSound = new Audio('assets/sound/mole_hit.wav');
-    // hitSound.play();
+    const hitSound = new Audio('assets/sound/smash.mp3');
+    hitSound.play();
     if (lives === 1) {
         isGameOver = true;
         setTimeout(() => {
@@ -156,7 +179,12 @@ function hit() {
 
     }
     lives -= 1;
-    LifeLabel.innerHTML = live.repeat(lives)
+    if (lives > 5) {
+        LifeLabel.innerHTML = `${live}X${lives}`;
+    } else {
+        LifeLabel.innerHTML = live.repeat(lives)
+        
+    }
     img.src = "assets/img/boom.png";
     cantMove = true;
 
@@ -171,6 +199,9 @@ function hit() {
 
 
 function gameOver() {
+    sound.pause();
+    const loseSound = new Audio('assets/sound/lose.wav');
+    loseSound.play();
     if (score > highScore) {
         highScore = score;
         localStorage.setItem('highScore-mole', highScore);
