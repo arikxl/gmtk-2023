@@ -129,6 +129,32 @@ footer{
     font-size: 2rem;
     background-color: rgba(0, 0, 34,0.6);
 
+
+}
+
+.slideInFromLeft{
+    animation-name: slideInFromLeft;
+    animation-duration: 1s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+}
+100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#footer2{
+    display: none;
 }
 
 .blood {

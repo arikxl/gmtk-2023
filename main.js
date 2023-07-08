@@ -4,6 +4,7 @@ const LifeLabel = document.getElementById('lifeSpan')
 const hammer1 = document.getElementById('hammer1');
 const hammer2 = document.getElementById('hammer2');
 const hammer3 = document.getElementById('hammer3');
+const footer1 = document.getElementById('footer1');
 const board = document.getElementById('board');
 const img = document.createElement('img');
 const h1 = document.querySelector('h1')
@@ -17,6 +18,7 @@ let player1 = holes[position];
 let cantMove = false;
 let speed = 1200;
 let isGameOver = false;
+let highScore = localStorage.getItem('highScore-mole') ||0;
 
 LifeLabel.innerHTML = live.repeat(lives);
 
@@ -35,8 +37,13 @@ function newGame() {
     h1.innerHTML = 'Save the Mole';
     h1.classList.remove('gameOver');
     h1.classList.add('glow');
+    img.src = "assets/img/mole.png";
     document.getElementById('gameOverMsg').style.display = 'none';
-    document.getElementById('board').style.display ='block';
+    document.getElementById('board').style.display = 'grid';
+    document.getElementById('footerP1').classList.remove('slideInFromLeft');
+    document.getElementById('footerP2').classList.remove('slideInFromLeft');
+    document.getElementById('footerP1').innerHTML = ' ';
+
 
     addMole();
 }
@@ -164,10 +171,24 @@ function hit() {
 
 
 function gameOver() {
-        
-        h1.innerHTML = 'Game Over!';
-        h1.classList.add('gameOver');
-        document.getElementById('board').style.display = 'none';
-        document.getElementById('gameOverMsg').style.display = 'block';
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('highScore-mole', highScore);
+        document.getElementById('footerP1').innerHTML = `Your Score is the Highest Score!!!`;
+        document.getElementById('footerP1').classList.add('glow');
+    } else {
+        document.getElementById('footerP1').innerHTML = ` `;
 
+    }
+    h1.innerHTML = 'Game Over!';
+    h1.classList.add('gameOver');
+    document.getElementById('board').style.display = 'none';
+    document.getElementById('gameOverMsg').style.display = 'block';
+    document.getElementById('footerP1').classList.add('slideInFromLeft');
+    document.getElementById('footerP2').classList.add('slideInFromLeft');
+    document.getElementById('footerP2').innerHTML = `High Score is ${highScore}`;
+    
+    document.addEventListener('keydown', function (event) {
+        if (event.code === 'Space'|| event.code==='Enter') newGame()
+    });
 }
